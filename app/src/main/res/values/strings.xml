@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">JustRun</string>
+    <string-array name="screen_array">
+        <item>Screen 1</item>
+        <item>Screen 2</item>
+        <item>Screen 3</item>
+    </string-array>
+    <string name="left_tab_text">Map</string>
+    <string name="right_tab_text">Trainer</string>
+
+    <string name="menu_element_text">Trainer</string>
+    <string name="test1">Test1</string>
+    <string name="test2">Test2</string>
+</resources>
