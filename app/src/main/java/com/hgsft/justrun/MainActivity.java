@@ -1,5 +1,8 @@
 package com.hgsft.justrun;
 
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -93,14 +96,29 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void selectItem(int position) {
+        //TODO
         // update the main content by replacing fragments
-        /*Fragment fragment = new PlanetFragment();
-        Bundle args = new Bundle();
-        args.putInt(PlanetFragment.ARG_PLANET_NUMBER, position);
-        fragment.setArguments(args);
+        /*Fragment fragment;
+        switch (position) {
+            case 0:
+            fragment = new TabView();
+            break;
+            case 1:
+            //fragment = new RightTab();
+                return;
+            //break;
+            default:
+                return;
+        }*/
 
-        FragmentManager fragmentManager = getFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();*/
+        /*Bundle args = new Bundle();
+        args.putInt(PlanetFragment.ARG_PLANET_NUMBER, position);
+        fragment.setArguments(args);*/
+
+        Fragment fragment = new TabView();
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
 
         // update selected item and title, then close the drawer
         mDrawerList.setItemChecked(position, true);

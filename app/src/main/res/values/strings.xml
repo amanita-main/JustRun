@@ -11,4 +11,7 @@
     <string name="menu_element_text">Trainer</string>
     <string name="test1">Test1</string>
     <string name="test2">Test2</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
