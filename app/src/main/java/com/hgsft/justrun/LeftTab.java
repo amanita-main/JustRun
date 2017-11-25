@@ -12,15 +12,9 @@ import android.view.ViewGroup;
  */
 public class LeftTab extends Fragment {
 
-
-    public static LeftTab Create() {
-        return new LeftTab();
-    }
-
     public LeftTab() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
