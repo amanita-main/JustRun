@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <item name="blue" type="color">#FF33B5E5</item>
+    <color tools:override="true" name="radio_button_unselected_color">#b6c4c9</color>
 </resources>

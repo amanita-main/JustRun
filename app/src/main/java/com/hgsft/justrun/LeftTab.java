@@ -10,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RadioGroup;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -17,14 +18,15 @@ import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 
+import info.hoang8f.android.segmented.SegmentedGroup;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class LeftTab extends Fragment implements OnMapReadyCallback {
 
-    MapView mapView;
-    GoogleMap map;
+    private MapView mapView;
+    private GoogleMap map;
 
     public LeftTab() {
         // Required empty public constructor
@@ -41,9 +43,20 @@ public class LeftTab extends Fragment implements OnMapReadyCallback {
 
         mapView.getMapAsync(this);
 
+        SegmentedGroup group = (SegmentedGroup)view.findViewById(R.id.segmented2);
+        group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                onSelectInternalTabBtn(checkedId);
+            }
+        });
         // Inflate the layout for this fragment
         return view;
 
+    }
+
+    private void onSelectInternalTabBtn(int index) {
+        //TODO: change view/mode
     }
 
     @Override
