@@ -11,6 +11,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -22,13 +23,14 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
+import com.hgsft.ui.NumberPicker.NumberPickerExt;
+import com.hgsft.ui.NumberPicker.OnTouchEventListnener;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import info.hoang8f.android.segmented.SegmentedGroup;
 import me.angrybyte.numberpicker.listener.OnValueChangeListener;
-import me.angrybyte.numberpicker.view.ActualNumberPicker;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -56,25 +58,28 @@ public class LeftTab extends Fragment implements OnMapReadyCallback {
             final int[] settingsKey = modeDialogSettings.get(Integer.valueOf(selectedMode));
             int layoutId = settingsKey[0];
             final View view = LayoutInflater.from(getContext()).inflate(layoutId, null);
-            final ActualNumberPicker valuePicker = (ActualNumberPicker)view.findViewById(settingsKey[3]);
+            final NumberPickerExt valuePicker = (NumberPickerExt)view.findViewById(settingsKey[3]);
             final String suffix = getResources().getString(settingsKey[2]);
             final TextView textView = (TextView)view.findViewById(R.id.textView);
+            valuePicker.setOnTouchEventListnener(new OnTouchEventListnener() {
+                @Override
+                public void OnTouchEvent(int eventAction) {
+                    //TODO: add inertia?
+                    if (eventAction == MotionEvent.ACTION_UP) {
+                        int value = valuePicker.getValue();
+                        if (value >= 100) {
+                            valuePicker.setMinValue(value - 100);
+                            valuePicker.setMaxValue(value + 100);
+                        }
+                    }
+                }
+            });
+
             valuePicker.setListener(new OnValueChangeListener() {
                 @Override
                 public void onValueChanged(int oldValue, int newValue) {
                     float value = (float)newValue / 10;
                     textView.setText(String.format("%.2f %s", value, suffix));
-                    int max = valuePicker.getMaxValue();
-                    int min = valuePicker.getMinValue();
-                    //TODO: it can be better, may be chose another value picker?
-                    int tr = (int)((max - min)*0.2);
-                    if (max - newValue <  tr) {
-                        valuePicker.setMaxValue(max + tr);
-                        valuePicker.setMinValue(min + tr);
-                    } else if (newValue - min < tr && min - tr > 0) {
-                        valuePicker.setMaxValue(max - tr);
-                        valuePicker.setMinValue(min - tr);
-                    }
                 }
             });
             //TODO: set current value or default
