@@ -18,5 +18,10 @@
     <string name="speed_mode">Speed</string>
     <string name="advanced_mode">Advanced</string>
     <string name="start_btn_txt">START</string>
+    <string name="distance">Training distance</string>
+    <string name="distanceSuffixKM">KM</string>
+    <string name="OK">OK</string>
+    <string name="CANCELL">CANCELL</string>
+
 
 </resources>

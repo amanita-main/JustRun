@@ -79,12 +79,24 @@
 
     </android.support.v7.widget.Toolbar>
 
+    <Button
+        android:id="@+id/modeSettings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/run_settings_style"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="180dp"
+        android:visibility="invisible"
+     />
+
     <com.google.android.gms.maps.MapView
         android:id="@+id/mapView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true" />
+        android:layout_centerVertical="true"
+     />
 
     <Button
         android:id="@+id/startTrainingButton"
@@ -119,7 +131,5 @@
         android:clickable="true"
         android:focusable="true"
         android:src="@android:drawable/ic_menu_manage" />
-
-
 
 </RelativeLayout>
