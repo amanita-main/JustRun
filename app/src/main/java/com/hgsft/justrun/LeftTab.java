@@ -5,6 +5,7 @@ import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
@@ -23,8 +24,8 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
-import com.hgsft.ui.NumberPicker.NumberPickerExt;
-import com.hgsft.ui.NumberPicker.OnTouchEventListnener;
+import com.hgsft.justrun.model.Data;
+import com.hgsft.ui.NumberPicker.AutoAdjustableNumberPicker;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -50,30 +51,17 @@ public class LeftTab extends Fragment implements OnMapReadyCallback {
         //TODO: fill table with all modes
     }};
 
-
     View.OnClickListener onClickModeSettings = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            //TODO: make this shitty code better
             final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
             final int[] settingsKey = modeDialogSettings.get(Integer.valueOf(selectedMode));
             int layoutId = settingsKey[0];
             final View view = LayoutInflater.from(getContext()).inflate(layoutId, null);
-            final NumberPickerExt valuePicker = (NumberPickerExt)view.findViewById(settingsKey[3]);
+            final AutoAdjustableNumberPicker valuePicker = (AutoAdjustableNumberPicker)view.findViewById(settingsKey[3]);
             final String suffix = getResources().getString(settingsKey[2]);
             final TextView textView = (TextView)view.findViewById(R.id.textView);
-            valuePicker.setOnTouchEventListnener(new OnTouchEventListnener() {
-                @Override
-                public void OnTouchEvent(int eventAction) {
-                    //TODO: add inertia?
-                    if (eventAction == MotionEvent.ACTION_UP) {
-                        int value = valuePicker.getValue();
-                        if (value >= 100) {
-                            valuePicker.setMinValue(value - 100);
-                            valuePicker.setMaxValue(value + 100);
-                        }
-                    }
-                }
-            });
 
             valuePicker.setListener(new OnValueChangeListener() {
                 @Override
