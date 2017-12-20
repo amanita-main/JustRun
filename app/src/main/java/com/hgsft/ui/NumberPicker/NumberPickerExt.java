@@ -14,7 +14,7 @@ import me.angrybyte.numberpicker.view.ActualNumberPicker;
 public class NumberPickerExt extends ActualNumberPicker {
 
     private Handler mEventsHandler = new Handler();
-    private OnTouchEventListnener mTouchListener;
+    private ITouchEventListnener mTouchListener;
 
     public NumberPickerExt(Context context) {
         super(context);
@@ -32,7 +32,7 @@ public class NumberPickerExt extends ActualNumberPicker {
         super(context, attrs, defStyleAttr, defStyleRes);
     }
 
-    public void setOnTouchEventListnener(OnTouchEventListnener listener) {
+    public void setOnTouchEventListnener(ITouchEventListnener listener) {
         mTouchListener = listener;
     }
 
