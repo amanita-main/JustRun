@@ -25,13 +25,12 @@ import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.hgsft.justrun.model.Data;
-import com.hgsft.ui.NumberPicker.AutoAdjustableNumberPicker;
+import com.hgsft.justrun.model.tasks.RunTaskManager;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import info.hoang8f.android.segmented.SegmentedGroup;
-import me.angrybyte.numberpicker.listener.OnValueChangeListener;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -44,57 +43,19 @@ public class LeftTab extends Fragment implements OnMapReadyCallback {
     private Button modeSettings;
     private SegmentedGroup group;
     private int selectedMode = R.id.basicMode;
-    private Map<Integer, int[]> modeDialogSettings = new HashMap<Integer, int[]>() {{
-        //Resource id as key, value is:
-        //                             0 - layout id, 1 - title text id, 2 - result suffix value, 3 - result getter(s)?
-        put(Integer.valueOf(R.id.distanceMode), new int[] {R.layout.dialog_number_picker, R.string.distance, R.string.distanceSuffixKM, R.id.actual_picker});
-        //TODO: fill table with all modes
+    private Map<Integer, RunTaskManager.Mode> modeDialogMapping = new HashMap<Integer, RunTaskManager.Mode>() {{
+        put(Integer.valueOf(R.id.basicMode), RunTaskManager.Mode.BASIC);
+        put(Integer.valueOf(R.id.distanceMode), RunTaskManager.Mode.DISTANCE);
+        put(Integer.valueOf(R.id.speedMode), RunTaskManager.Mode.SPEED);
+        put(Integer.valueOf(R.id.timeMode), RunTaskManager.Mode.TIME);
+        put(Integer.valueOf(R.id.advancedMode), RunTaskManager.Mode.ADVANCED);
     }};
 
     View.OnClickListener onClickModeSettings = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            //TODO: make this shitty code better
-            final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-            final int[] settingsKey = modeDialogSettings.get(Integer.valueOf(selectedMode));
-            int layoutId = settingsKey[0];
-            final View view = LayoutInflater.from(getContext()).inflate(layoutId, null);
-            final AutoAdjustableNumberPicker valuePicker = (AutoAdjustableNumberPicker)view.findViewById(settingsKey[3]);
-            final String suffix = getResources().getString(settingsKey[2]);
-            final TextView textView = (TextView)view.findViewById(R.id.textView);
-
-            valuePicker.setListener(new OnValueChangeListener() {
-                @Override
-                public void onValueChanged(int oldValue, int newValue) {
-                    float value = (float)newValue / 10;
-                    textView.setText(String.format("%.2f %s", value, suffix));
-                }
-            });
-            //TODO: set current value or default
-
-            int titleId = settingsKey[1];
-            builder.setTitle(titleId)
-                    .setView(view)
-                    .setPositiveButton(R.string.OK, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            getActivity().runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    //TODO: set value to var and save it to settings
-                                    float value = (float)valuePicker.getValue() / 10;
-                                    modeSettings.setText(String.format("%.2f %s", value, suffix));
-                                }
-                            });
-                        }
-                    })
-                    .setNegativeButton(R.string.CANCELL, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                        }
-                    })
-                    .create()
-                    .show();
+            RunTaskManager.Mode mode = modeDialogMapping.get(selectedMode);
+            RunModeSettingsDialog.openDialog(getActivity(), (Button)v, mode);
         }
     };
 
@@ -108,7 +69,18 @@ public class LeftTab extends Fragment implements OnMapReadyCallback {
     View.OnClickListener onClickStartRun = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            //TODO: change mode/show running activity?
+            //TODO: hide button/show timer/show running activity?
+            final Button btn = (Button)v;
+            new CountDownTimer(Data.getCurrent().getSettings().getCountDownTimer(), 1000) {
+
+                public void onTick(long millisUntilFinished) {
+                    btn.setText(String.valueOf(millisUntilFinished / 1000));
+                }
+
+                public void onFinish() {
+                    //TODO
+                }
+            }.start();
         }
     };
 

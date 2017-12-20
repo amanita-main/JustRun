@@ -16,6 +16,14 @@ import java.util.TimerTask;
 
 public class RunTaskManager {
 
+    public enum Mode {
+        BASIC,
+        DISTANCE,
+        SPEED,
+        TIME,
+        ADVANCED,
+    }
+
     private static RunTaskManager instance = new RunTaskManager();
 
     private IChangedStateListener.State state = IChangedStateListener.State.STOPPED;
@@ -36,6 +44,7 @@ public class RunTaskManager {
     private IValueGetter valueGetter;
     private ArrayDeque<RunTask> tasks = new ArrayDeque<>();
     private RunTask currentTask = null;
+    private Mode currentMode;
 
     public static void setOnChangedStateListener(IChangedStateListener listener) {
         instance.listener = listener;
@@ -43,6 +52,10 @@ public class RunTaskManager {
 
     public static IChangedStateListener.State getCurrentState() {
         return instance.state;
+    }
+
+    public static void changeMode(Mode mode) {
+        instance.currentMode = mode;
     }
 
     public static void setTasks(IValueGetter valueGetter, RunTask[] tasks) {
