@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <com.hgsft.ui.NumberPicker.NumberPickerExt
+    <com.hgsft.ui.NumberPicker.AutoAdjustableNumberPicker
         android:id="@+id/actual_picker"
         android:layout_width="match_parent"
         android:layout_height="48dp"
