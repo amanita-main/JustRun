@@ -28,14 +28,17 @@ public class AutoAdjustableNumberPicker extends NumberPickerExt {
 
     public AutoAdjustableNumberPicker(Context context) {
         super(context);
+        setOnTouchEventListnener(listener);
     }
 
     public AutoAdjustableNumberPicker(Context context, AttributeSet attrs) {
         super(context, attrs);
+        setOnTouchEventListnener(listener);
     }
 
     public AutoAdjustableNumberPicker(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        setOnTouchEventListnener(listener);
     }
 
 }
