@@ -9,5 +9,5 @@ import me.angrybyte.numberpicker.view.ActualNumberPicker;
  */
 
 public interface ITouchEventListnener {
-    void OnTouchEvent(int eventAction);
+    void OnTouchEvent(MotionEvent motionEvent);
 }

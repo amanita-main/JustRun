@@ -43,7 +43,11 @@ public class RunModeSettingsDialog {
         valuePicker.setListener(new OnValueChangeListener() {
             @Override
             public void onValueChanged(int oldValue, int newValue) {
-                float value = (float)newValue / 10;
+                float value = ((float)valuePicker.getCurrentValue()) / 10;
+                if (value < 0) {
+                    value = 0;
+                    valuePicker.setCurrentValue(0);
+                }
                 textView.setText(String.format("%.2f %s", value, suffix));
             }
         });
@@ -59,7 +63,11 @@ public class RunModeSettingsDialog {
                             @Override
                             public void run() {
                                 //TODO: set value to var and save it to settings
-                                float value = (float)valuePicker.getValue() / 10;
+                                float value = ((float)valuePicker.getCurrentValue()) / 10;
+                                if (value < 0) {
+                                    value = 0;
+                                    valuePicker.setCurrentValue(0);
+                                }
                                 btn.setText(String.format("%.2f %s", value, suffix));
                             }
                         });

@@ -38,7 +38,7 @@ public class NumberPickerExt extends ActualNumberPicker {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        final int action = event.getAction();
+        final MotionEvent action = event;
         mEventsHandler.post(new Runnable() {
             @Override
             public void run() {

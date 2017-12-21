@@ -12,33 +12,56 @@ import me.angrybyte.numberpicker.view.ActualNumberPicker;
 
 public class AutoAdjustableNumberPicker extends NumberPickerExt {
 
+    private float prevPercent;
+    private float currentPercent;
+    private int currentValue;
+
     private ITouchEventListnener listener = new ITouchEventListnener() {
         @Override
-        public void OnTouchEvent(int eventAction) {
-            if (eventAction == MotionEvent.ACTION_UP) {
-                int middleValue = getMaxValue() - getMinValue();
-                int value = getValue();
-                if (value >= middleValue) {
-                    setMinValue(value - middleValue);
-                    setMaxValue(value + middleValue);
-                }
+        public void OnTouchEvent(MotionEvent motionEvent) {
+            int eventAction = motionEvent.getAction();
+            currentPercent = motionEvent.getX() /getWidth();
+            switch (eventAction) {
+                case MotionEvent.ACTION_DOWN:
+                    prevPercent = currentPercent;
+                    break;
+                case MotionEvent.ACTION_UP:
+                    currentValue += (int)((getMaxValue() - getMinValue()) * (currentPercent - prevPercent));
+                    currentPercent = 0;
+                    prevPercent = 0;
+                    break;
             }
         }
     };
 
     public AutoAdjustableNumberPicker(Context context) {
         super(context);
-        setOnTouchEventListnener(listener);
+        init();
     }
 
     public AutoAdjustableNumberPicker(Context context, AttributeSet attrs) {
         super(context, attrs);
-        setOnTouchEventListnener(listener);
+        init();
     }
 
     public AutoAdjustableNumberPicker(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        init();
+    }
+
+    private void init() {
         setOnTouchEventListnener(listener);
+        prevPercent = 0;
+        currentPercent = 0;
+        currentValue = getValue();
+    }
+
+    public int getCurrentValue() {
+        return currentValue + (int)((getMaxValue() - getMinValue()) * (currentPercent - prevPercent));
+    }
+
+    public void setCurrentValue(int value) {
+        currentValue = value;
     }
 
 }
