@@ -14,6 +14,9 @@ import java.util.TimerTask;
  * Created by Ilya on 19.12.2017.
  */
 
+/**
+ * Controller for current training mode
+ */
 public class RunTaskManager {
 
     public enum Mode {
@@ -41,7 +44,19 @@ public class RunTaskManager {
             }
         }
     };
+    /**
+     * Value getter for current training mode.
+     * May return current training time, ditance or pace
+     * Not sure is it a good method to solve this
+     */
     private IValueGetter valueGetter;
+    /**
+     * Training may be complicated, for example:
+     * you should run slowly for some time/distance
+     * and then run faster.
+     * I'd like to make notification about changed mode,
+     * and support many modes in one training
+     */
     private ArrayDeque<RunTask> tasks = new ArrayDeque<>();
     private RunTask currentTask = null;
     private Mode currentMode;
@@ -75,7 +90,7 @@ public class RunTaskManager {
     }
 
     public static void stop() {
-        //TODO: request stop state due to timer running?
+        //TODO: request stop state (set some bool) due to timer running?
         //instance.timerTask.cancel();
         instance.timer.cancel();
         //??
@@ -87,7 +102,7 @@ public class RunTaskManager {
     }
 
     public static void pause() {
-        //TODO: request pause state due to timer running?
+        //TODO: request pause state (set some bool) due to timer running?
         instance.timer.cancel();
         //instance.timerTask.cancel();
         instance.currentTask.pause();

@@ -7,7 +7,6 @@ import com.hgstf.utils.SavePrefs;
 /**
  * Created by Ilya on 18.12.2017.
  */
-
 public class Data {
 
     private static final String SERIALIZE_KEY = "SAVE_CONFIG";
@@ -39,12 +38,6 @@ public class Data {
         d.settings = Settings.getDefault();
         d.setCurrentVersion(Upgrade.getCurrentVersion());
         return d;
-        /*return new Data() {
-            {
-                this.currentVersion = Upgrade.getCurrentVersion();
-                this.settings = Settings.getDefault();
-            }
-        };*/
     }
 
     private static Data currentData = null;

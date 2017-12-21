@@ -7,6 +7,9 @@ import java.util.Map;
  * Created by Ilya on 18.12.2017.
  */
 
+/**
+ * Main settings class.
+ */
 public class Settings {
 
     enum RunModes {
@@ -14,7 +17,7 @@ public class Settings {
         DISTANCE,
         TIME,
         SPEED,
-        //TODO
+        //TODO: add advanced mode. Commented due I not sure about implementation
         //ADVANCED,
     }
 

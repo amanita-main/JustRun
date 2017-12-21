@@ -1,29 +1,19 @@
 package com.hgsft.justrun;
 
+import android.content.res.Configuration;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.widget.Toolbar;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.view.Gravity;
-import android.view.View;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.support.design.widget.TabLayout;
-/*import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;*/
 import android.support.v4.widget.DrawerLayout;
-import android.widget.ListView;
-import android.widget.ArrayAdapter;
-import android.content.res.Configuration;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
+import android.view.Gravity;
+import android.view.MenuItem;
+import android.view.View;
 import android.widget.AdapterView;
-import android.view.MenuInflater;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -79,8 +69,6 @@ public class MainActivity extends AppCompatActivity {
         };
         mDrawerLayout.addDrawerListener(mDrawerToggle);
 
-        //TODO: add tabs
-
         if (savedInstanceState == null) {
             selectItem(0);
         }
@@ -96,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void selectItem(int position) {
-        //TODO
+        //TODO: show content depending on selected position value
         // update the main content by replacing fragments
         /*Fragment fragment;
         switch (position) {
@@ -115,6 +103,7 @@ public class MainActivity extends AppCompatActivity {
         args.putInt(PlanetFragment.ARG_PLANET_NUMBER, position);
         fragment.setArguments(args);*/
 
+        //Now I show only one TabView
         Fragment fragment = new TabView();
 
         FragmentManager fragmentManager = getSupportFragmentManager();

@@ -20,6 +20,9 @@ import me.angrybyte.numberpicker.listener.OnValueChangeListener;
  * Created by Ilya on 20.12.2017.
  */
 
+/**
+ * Dialogs for input current training settings (slider) like duration, distance, pace, etc
+ */
 public class RunModeSettingsDialog {
     private static final Map<RunTaskManager.Mode, int[]> modeDialogSettings = new HashMap<RunTaskManager.Mode, int[]>() {{
         //Resource id as key, value is:

@@ -34,6 +34,8 @@ import info.hoang8f.android.segmented.SegmentedGroup;
 
 /**
  * A simple {@link Fragment} subclass.
+ * Start training View
+ * Contains map on 'background', taraining mode choser, settings, and start button
  */
 public class LeftTab extends Fragment implements OnMapReadyCallback {
 
@@ -43,7 +45,8 @@ public class LeftTab extends Fragment implements OnMapReadyCallback {
     private Button modeSettings;
     private SegmentedGroup group;
     private int selectedMode = R.id.basicMode;
-    private Map<Integer, RunTaskManager.Mode> modeDialogMapping = new HashMap<Integer, RunTaskManager.Mode>() {{
+    //settings Map, contains pairs of linked pairs: radio button id <-> Run mode
+    private static final Map<Integer, RunTaskManager.Mode> modeDialogMapping = new HashMap<Integer, RunTaskManager.Mode>() {{
         put(Integer.valueOf(R.id.basicMode), RunTaskManager.Mode.BASIC);
         put(Integer.valueOf(R.id.distanceMode), RunTaskManager.Mode.DISTANCE);
         put(Integer.valueOf(R.id.speedMode), RunTaskManager.Mode.SPEED);
@@ -54,6 +57,7 @@ public class LeftTab extends Fragment implements OnMapReadyCallback {
     View.OnClickListener onClickModeSettings = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            //show settings dialog for current training mode (like pick a distance/time, etc)
             RunTaskManager.Mode mode = modeDialogMapping.get(selectedMode);
             RunModeSettingsDialog.openDialog(getActivity(), (Button)v, mode);
         }
@@ -70,7 +74,10 @@ public class LeftTab extends Fragment implements OnMapReadyCallback {
         @Override
         public void onClick(View v) {
             //TODO: hide button/show timer/show running activity?
+            //start countdown new timer before start training
             final Button btn = (Button)v;
+            //not tested behaviour with enable/disable button
+            //btn.setEnabled(false);
             new CountDownTimer(Data.getCurrent().getSettings().getCountDownTimer(), 1000) {
 
                 public void onTick(long millisUntilFinished) {
@@ -78,7 +85,8 @@ public class LeftTab extends Fragment implements OnMapReadyCallback {
                 }
 
                 public void onFinish() {
-                    //TODO
+                    //TODO: start training in training controller, unlock button?
+                    //btn.setEnabled(true);
                 }
             }.start();
         }
@@ -159,7 +167,7 @@ public class LeftTab extends Fragment implements OnMapReadyCallback {
     public void onMapReady(GoogleMap googleMap) {
         map = googleMap;
         map.getUiSettings().setMyLocationButtonEnabled(false);
-
+        //check if permissions is granted
         if (!isMapPermissionsGranted()) {
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
@@ -187,6 +195,7 @@ public class LeftTab extends Fragment implements OnMapReadyCallback {
         // Updates the location and zoom of the MapView
         /*CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(new LatLng(43.1, -87.9), 10);
         map.animateCamera(cameraUpdate);*/
+        //TODO: set map position at recieved positioning data or last known
         map.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(43.1, -87.9)));
     }
 

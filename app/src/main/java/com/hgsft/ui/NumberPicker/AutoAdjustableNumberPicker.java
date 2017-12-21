@@ -10,6 +10,10 @@ import me.angrybyte.numberpicker.view.ActualNumberPicker;
  * Created by Ilya on 20.12.2017.
  */
 
+/**
+ * Extends NumberPickerExt to have a more predictable value changes on scrolling
+ * May be replaced with other component in future
+ */
 public class AutoAdjustableNumberPicker extends NumberPickerExt {
 
     private float prevPercent;
@@ -23,9 +27,11 @@ public class AutoAdjustableNumberPicker extends NumberPickerExt {
             currentPercent = motionEvent.getX() /getWidth();
             switch (eventAction) {
                 case MotionEvent.ACTION_DOWN:
+                    //save pecent on touch
                     prevPercent = currentPercent;
                     break;
                 case MotionEvent.ACTION_UP:
+                    //update current value on touch up, and reset percent values
                     currentValue += (int)((getMaxValue() - getMinValue()) * (currentPercent - prevPercent));
                     currentPercent = 0;
                     prevPercent = 0;
@@ -59,7 +65,6 @@ public class AutoAdjustableNumberPicker extends NumberPickerExt {
     public int getCurrentValue() {
         return currentValue + (int)((getMaxValue() - getMinValue()) * (currentPercent - prevPercent));
     }
-
     public void setCurrentValue(int value) {
         currentValue = value;
     }

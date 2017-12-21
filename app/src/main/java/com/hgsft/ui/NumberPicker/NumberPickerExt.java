@@ -11,6 +11,11 @@ import me.angrybyte.numberpicker.view.ActualNumberPicker;
  * Created by Ilya on 16.12.2017.
  */
 
+/**
+ * Extension for library control ActualNumberPicker.
+ * Supports TouchEvent listener
+ * May be replaced with other component in future
+ */
 public class NumberPickerExt extends ActualNumberPicker {
 
     private Handler mEventsHandler = new Handler();
